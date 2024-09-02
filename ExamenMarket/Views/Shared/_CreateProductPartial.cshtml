@@ -1,0 +1,50 @@
+﻿
+﻿<div>
+    <form id="createStudentForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="expirationDate">Expiration Date:</label>
+            <input type="datetime-local" id="expirationDate" name="expirationDate" class="form-control" />
+        </div>
+
+        <button type="button" id="submitStudentButton" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submitStudentButton').click(function () {
+            debugger;
+            var name = $('#name').val();
+            var price = $('#price').val();
+            var expirationDate = $('#expirationDate').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Product/Create",
+                data: {
+                    name: name,
+                    price: price,
+                    expirationDate: expirationDate
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#createProductModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Hubo un error al crear el estudiante.');
+                }
+            });
+        });
+    });
+</script>
+
